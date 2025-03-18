@@ -1,0 +1,28 @@
+spring:
+  application:
+    name: aws-demo-service
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/aws_demo
+    username:
+    password:
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: update
+  data:
+    redis:
+      host: 127.0.0.1
+      port: 6379
+      timeout: 60000
+      client-type: jedis
+      jedis:
+        pool:
+          enabled: true
+          max-active: 10
+          max-idle: 2
+
+server:
+  port: 5000
