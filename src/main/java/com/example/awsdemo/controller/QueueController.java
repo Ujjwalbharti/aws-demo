@@ -9,6 +9,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("v1/sqs")
 @RequiredArgsConstructor
@@ -22,7 +24,13 @@ public class QueueController {
         return ResponseEntity.status(HttpStatus.CREATED).body("Queue created");
     }
 
-    @GetMapping("fetch/{queueName}")
+    @GetMapping("fetch/queues")
+    public ResponseEntity<?> fetchAllQueue() throws Exception {
+        List<QueueDTO> queues = queueService.findAllQueues();
+        return ResponseEntity.ok(queues);
+    }
+
+    @GetMapping("fetch/queue/{queueName}")
     public ResponseEntity<QueueDTO> fetchQueue(@PathVariable String queueName) throws Exception {
         QueueDTO queueDTO = queueService.findQueueBy(queueName);
         return ResponseEntity.ok(queueDTO);
