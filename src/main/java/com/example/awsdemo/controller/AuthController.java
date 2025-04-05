@@ -3,6 +3,7 @@ package com.example.awsdemo.controller;
 import com.example.awsdemo.models.UserDTO;
 import com.example.awsdemo.models.request.LogInRequest;
 import com.example.awsdemo.models.request.SignUpRequest;
+import com.example.awsdemo.models.response.ApiResponse;
 import com.example.awsdemo.models.response.LoginResponse;
 import com.example.awsdemo.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -17,9 +18,9 @@ public class AuthController {
     private final UserService userService;
 
     @PostMapping("signup")
-    public ResponseEntity<String> signup(@RequestBody SignUpRequest signUpRequest) throws Exception {
+    public ResponseEntity<ApiResponse> signup(@RequestBody SignUpRequest signUpRequest) throws Exception {
         userService.createUser(signUpRequest);
-        return ResponseEntity.status(HttpStatus.CREATED).body("Created user successfully");
+        return ResponseEntity.status(HttpStatus.CREATED).body(new ApiResponse("Sign up successfully"));
     }
 
     @PostMapping("login")

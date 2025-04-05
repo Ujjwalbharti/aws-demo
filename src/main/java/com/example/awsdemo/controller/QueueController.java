@@ -2,6 +2,7 @@ package com.example.awsdemo.controller;
 
 import com.example.awsdemo.models.QueueDTO;
 import com.example.awsdemo.models.request.CreateQueueRequest;
+import com.example.awsdemo.models.response.ApiResponse;
 import com.example.awsdemo.service.QueueService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -19,13 +20,13 @@ public class QueueController {
     private final QueueService queueService;
 
     @PostMapping("create")
-    public ResponseEntity<String> createQueue(@Valid @RequestBody CreateQueueRequest createQueueRequest) throws Exception {
+    public ResponseEntity<ApiResponse> createQueue(@Valid @RequestBody CreateQueueRequest createQueueRequest) throws Exception {
         queueService.createQueue(createQueueRequest);
-        return ResponseEntity.status(HttpStatus.CREATED).body("Queue created");
+        return ResponseEntity.status(HttpStatus.CREATED).body(new ApiResponse("Queue created successfully"));
     }
 
     @GetMapping("fetch/queues")
-    public ResponseEntity<?> fetchAllQueue() throws Exception {
+    public ResponseEntity<List<QueueDTO>> fetchAllQueue() throws Exception {
         List<QueueDTO> queues = queueService.findAllQueues();
         return ResponseEntity.ok(queues);
     }
@@ -37,8 +38,8 @@ public class QueueController {
     }
 
     @DeleteMapping("delete/{queueName}")
-    public ResponseEntity<String> deleteQueue(@PathVariable String queueName) throws Exception {
+    public ResponseEntity<ApiResponse> deleteQueue(@PathVariable String queueName) throws Exception {
         queueService.deleteQueue(queueName);
-        return ResponseEntity.status(HttpStatus.NO_CONTENT).body("Queue deleted");
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).body(new ApiResponse("Queue deleted successfully"));
     }
 }
