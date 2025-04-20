@@ -16,6 +16,6 @@ public class MessagePollRequest {
     private String queueName;
 
     @Min(value = 1, message = "number of message to be poll, can not be zero")
-    @Max(value = 10, message = "number of messages to be poll, can not be greater than 10")
+    @Max(value = 50, message = "number of messages to be poll, can not be greater than 50")
     private int limit;
 }

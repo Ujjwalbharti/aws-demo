@@ -27,7 +27,7 @@ public class MessageController {
         return ResponseEntity.status(HttpStatus.CREATED).body(new ApiResponse("Message sent successfully"));
     }
 
-    @GetMapping("poll-messages")
+    @PostMapping("poll-messages")
     public ResponseEntity<List<MessageDTO>> pollMessage(@Valid @RequestBody MessagePollRequest request) throws Exception {
         List<MessageDTO> messages = messageService.pollMessages(request);
         return ResponseEntity.ok(messages);
